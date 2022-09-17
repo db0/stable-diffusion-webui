@@ -11,7 +11,7 @@ call update_runtime
 set SETUPTOOLS_USE_DISTUTILS=stdlib
 call conda\condabin\activate.bat ldm
 IF EXIST "models\ldm\stable-diffusion-v1\model.ckpt" (
-  python scripts/relauncher_optimized.py
+  python scripts/relauncher_bridge.py
 ) ELSE (
   ECHO Your model file does not exist! Place it in 'models\ldm\stable-diffusion-v1' with the name 'model.ckpt'.
 )
