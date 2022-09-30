@@ -1,3 +1,18 @@
+# This file is part of stable-diffusion-webui (https://github.com/sd-webui/stable-diffusion-webui/).
+
+# Copyright 2022 sd-webui team.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 import argparse, os, sys, glob, re, requests, json, time
 
 import cv2
@@ -2638,12 +2653,15 @@ def run_bridge(interval, api_key, horde_name, horde_url, priority_usernames, hor
                 continue
             if not pop.get("id"):
                 skipped_info = pop.get('skipped')
-                if skipped_info:
+                if skipped_info and len(skipped_info):
                     skipped_info = f" Skipped Info: {skipped_info}."
+                else:
+                    skipped_info = ''
                 logger.debug(f"Server {horde_url} has no valid generations to do for us.{skipped_info}")
                 time.sleep(interval)
                 continue
             current_id = pop['id']
+            logger.debug(f"Request with id {current_id} picked up. Initiating work...")
             current_payload = pop['payload']
             if 'toggles' in current_payload and current_payload['toggles'] == None:
                 logger.error(f"Received Bad payload: {pop}")
