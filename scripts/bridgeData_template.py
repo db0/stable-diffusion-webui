@@ -11,5 +11,5 @@ horde_priority_usernames = []
 # The amount of power your system can handle
 # 8 means 512*512. Each increase increases the possible resoluion by 64 pixes
 # So if you put this to 2 (the minimum, your SD can only generate 64x64 pixels
-# If you put this to 32, it is equivalent to 1024x1024 pixels
+# If you put this to 16, it is equivalent to 1024x1024 pixels
 horde_max_power = 8
