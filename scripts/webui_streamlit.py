@@ -84,7 +84,8 @@ opt = parser.parse_args()
 
 with server_state_lock["bridge"]:
     server_state["bridge"] = opt.bridge
-    server_state["bridge_running"] = None
+    if "bridge_running" not in server_state:
+        server_state["bridge_running"] = False
 
 try:
     # this silences the annoying "Some weights of the model checkpoint were not used when initializing..." message at start.
@@ -289,9 +290,9 @@ if __name__ == '__main__':
                                                             horde_nsfw, horde_censor_nsfw, horde_blacklist,
                                                             horde_censorlist), args=())
                 thread.daemon = True
-                server_state["running_bridge"] = thread
+                server_state["running_bridge"] = True
                 thread.start()
                 #run_bridge(1, horde_api_key, horde_name, horde_url, horde_priority_usernames, horde_max_pixels, horde_nsfw, horde_censor_nsfw, horde_blacklist, horde_censorlist)
             except KeyboardInterrupt:
-                server_state["running_bridge"] = None
+                server_state["running_bridge"] = False
                 logger.init_ok(f"Bridge", status="Stopped")
