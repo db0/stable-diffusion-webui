@@ -2649,6 +2649,7 @@ def run_bridge(interval, api_key, horde_name, horde_url, priority_usernames, hor
             "bridge_version": 2,
         }
         headers = {"apikey": api_key}
+        pop = None
         if current_id:
             loop_retry += 1
         else:
